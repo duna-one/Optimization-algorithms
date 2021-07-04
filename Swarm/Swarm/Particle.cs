@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Swarm.Swarm
+namespace Swarm
 {
     internal class Particle
     {
