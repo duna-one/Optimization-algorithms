@@ -35,12 +35,12 @@ namespace Swarm.Swarm
             }
         }
 
-        public void NextIteration(List<double> GlobalBestValue)
+        public void NextIteration(List<double> GlobalBestPosition)
         {
             UpdatePosition();
             UpdateCurrentValue();
             UpdateBestValue();
-            UpdateVelocity(GlobalBestValue);
+            UpdateVelocity(GlobalBestPosition);
         }
 
         private void UpdatePosition()
@@ -51,7 +51,7 @@ namespace Swarm.Swarm
             }
         }
 
-        private void UpdateVelocity(List<double> GlobalBestValue)
+        private void UpdateVelocity(List<double> GlobalBestPosition)
         {
             Random rnd = new Random();
             double f = FP + FG;
@@ -67,7 +67,7 @@ namespace Swarm.Swarm
 
             for (int i = 0; i < Velocity.Count; i++)
             {
-                Velocity[i] = X * (Velocity[i] + (FP * rP * (BestValuePosition[i] - Position[i])) + (FG * rG * (GlobalBestValue[i] - Position[i])));
+                Velocity[i] = X * (Velocity[i] + (FP * rP * (BestValuePosition[i] - Position[i])) + (FG * rG * (GlobalBestPosition[i] - Position[i])));
             }
         }
 
