@@ -15,7 +15,7 @@ namespace Swarm.Swarm
         private readonly double FG;
         private readonly byte FunctionID;
 
-        public Particle(int N, double FP, double FG, byte FunctionID, int maxX, int minX)
+        public Particle(int N, double FP, double FG, byte FunctionID, List<int> maxPosition, List<int> minPosition)
         {
             Random rnd = new Random();
 
@@ -29,7 +29,7 @@ namespace Swarm.Swarm
 
             for (int i = 0; i < N; i++)
             {
-                Position.Add(rnd.Next(minX, maxX) + rnd.NextDouble());
+                Position.Add(rnd.Next(minPosition[i], maxPosition[i]) + rnd.NextDouble());
                 Velocity.Add(0);
                 BestValuePosition.Add(0);
             }
