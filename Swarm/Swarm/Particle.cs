@@ -85,7 +85,7 @@ namespace Swarm.Swarm
                     CurrentValue = Functions.GetSchwefelValue(Position);
                     break;
                 default:
-                    System.Exception exception = new System.Exception("An incorrect ID of the function was received");
+                    Exception exception = new System.Exception("An incorrect ID of the function was received");
                     throw exception;
             }
         }
