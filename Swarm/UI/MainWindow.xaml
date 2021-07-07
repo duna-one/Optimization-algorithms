@@ -3,10 +3,104 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Swarm"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Swarm algoritm" Height="450" Width="800"
+        ResizeMode="NoResize">
+    <Window.Resources>
+        <Style TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        
+        <Style TargetType="{x:Type ComboBox}">
+            <Style.Resources>                
+                <Style TargetType="{x:Type ComboBoxItem}">
+                    <Style.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Style.Resources>
+                    <Setter Property="Margin" Value="2"/>
+                    <Setter Property="Background" Value="#bcdcfc"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
 
+        <Style TargetType="{x:Type Button}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Style.Resources>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Function:" Grid.Column="0" Grid.Row="0"/>
+        <Label Content="Dimensions count:" Grid.Column="0" Grid.Row="1"/>
+        <Label Content="FP coeficient:" Grid.Column="0" Grid.Row="2"/>
+        <Label Content="FG coeficient:" Grid.Column="0" Grid.Row="3"/>
+        <Label Content="Particles count:" Grid.Column="0" Grid.Row="4"/>
+        <Label Content="Iterations count:" Grid.Column="0" Grid.Row="5"/>
+        <Label Content="Result:" Grid.Column="0" Grid.Row="7"/>
+
+        <ComboBox Name="FunctionSelector" Grid.Column="1" Grid.Row="0">
+            <ComboBoxItem Content="Sphere" IsSelected="True"/>
+            <ComboBoxItem Content="Rastrigin"/>
+            <ComboBoxItem Content="Schwefel"/>
+        </ComboBox>
+        <TextBox Name="DimensionsInput" Grid.Column="1" Grid.Row="1"/>
+        <TextBox Name="FPInput" Grid.Column="1" Grid.Row="2"/>
+        <TextBox Name="FGInput" Grid.Column="1" Grid.Row="3"/>
+        <TextBox Name="ParticlesCountInput" Grid.Column="1" Grid.Row="4"/>
+        <TextBox Name="IterationsCountInput" Grid.Column="1" Grid.Row="5"/>
+        <TextBox Name="ResultOutput" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9"/>
+
+        <lvc:CartesianChart Name="OutputChart" LegendLocation="Bottom" Margin="5" Grid.Row="0" Grid.RowSpan="9" Grid.Column="3">
+            <lvc:CartesianChart.Series>
+                <lvc:ScatterSeries Title="Particle" Values="{Binding Particles}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"/>
+            </lvc:CartesianChart.Series>
+
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Unit="1"/>
+            </lvc:CartesianChart.AxisY>
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Unit="1"/>
+            </lvc:CartesianChart.AxisX>
+        </lvc:CartesianChart>
+
+        <Button Content="Start" Width="150" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Click="Button_Click"/>
     </Grid>
 </Window>
