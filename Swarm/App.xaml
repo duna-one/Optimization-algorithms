@@ -1,9 +1,11 @@
-﻿<Application x:Class="App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Swarm"
+﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              StartupUri="UI/MainWindow.xaml">
     <Application.Resources>
-         
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/UI/Styles/RoundedComboBox.xaml"/>
+                <ResourceDictionary Source="/UI/Styles/DefaultProjectStyles.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>   
     </Application.Resources>
 </Application>
