@@ -16,6 +16,7 @@ namespace Swarm
                 Particles.Add(new Particle(N, FP, FG, FunctionID, maxPosition, minPosition));
             }
             GlobalBestValue = double.MaxValue;
+            GlobalBestPosition = new List<double>(N);
             FindBestGlobal_ValuePosition();
         }
 
