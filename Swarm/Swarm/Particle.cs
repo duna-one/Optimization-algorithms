@@ -13,9 +13,9 @@ namespace Swarm
 
         private readonly double FP;
         private readonly double FG;
-        private readonly byte FunctionID;
+        private readonly int FunctionID;
 
-        public Particle(int N, double FP, double FG, byte FunctionID, List<int> maxPosition, List<int> minPosition)
+        public Particle(int N, double FP, double FG, int FunctionID, List<int> maxPosition, List<int> minPosition)
         {
             Random rnd = new Random();
 

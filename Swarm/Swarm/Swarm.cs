@@ -8,7 +8,7 @@ namespace Swarm
         public List<double> GlobalBestPosition { get; private set; }
         public double GlobalBestValue { get; private set; }
 
-        public Swarm(int particlesCount, int N, double FP, double FG, byte FunctionID, List<int> maxPosition, List<int> minPosition)
+        public Swarm(int particlesCount, int N, double FP, double FG, int FunctionID, List<int> maxPosition, List<int> minPosition)
         {
             Particles = new List<Particle>();
             for (int i = 0; i < particlesCount; i++)
