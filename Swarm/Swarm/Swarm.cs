@@ -28,6 +28,37 @@ namespace Swarm
             FindBestGlobal_ValuePosition();
         }
 
+        public List<List<double>> GetResult()
+        {
+            List<List<double>> result = new List<List<double>>();
+            List<Particle> buffer = new List<Particle>();
+            Particle BestParticle;
+
+            foreach(Particle particle in Particles)
+            {
+                buffer.Add(particle);
+            }
+
+           for(int i=0; i<4; i++)
+            {
+                BestParticle = buffer[0];
+                foreach (Particle particle in Particles)
+                {
+                    if (particle.CurrentValue < BestParticle.CurrentValue)
+                    {
+                        BestParticle = particle;
+                    }
+                }
+                result.Add(new List<double>());
+                foreach(double coordinate in BestParticle.Position)
+                {
+                    result[i].Add(coordinate);
+                }
+                buffer.Remove(BestParticle);
+            }
+            return result;
+        }
+
         private void FindBestGlobal_ValuePosition()
         {
             foreach (Particle particle in Particles)
