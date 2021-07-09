@@ -24,5 +24,15 @@ namespace Swarm
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckCorrect_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !double.TryParse(e.Text, out _) && !char.IsDigit(e.Text[0]) && e.Text[0]!=',' && e.Text[0]!='-';
+        }
     }
 }
