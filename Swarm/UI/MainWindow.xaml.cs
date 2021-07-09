@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Defaults;
 
 namespace Swarm
 {
@@ -20,14 +12,67 @@ namespace Swarm
     /// </summary>
     public partial class MainWindow : Window
     {
+        ChartValues<ObservablePoint> ChartParticles = new ChartValues<ObservablePoint>();
+
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
+        /// <summary>
+        /// Main function
+        /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (!CheckInputs()) return;
 
+            int FunctionID = FunctionSelector.SelectedIndex;
+            int DimensionsCount = int.Parse(DimensionsInput.Text);
+
+            Swarm swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
+                                    DimensionsCount,
+                                    double.Parse(FPInput.Text),
+                                    double.Parse(FGInput.Text),
+                                    FunctionID,
+                                    new List<int>() { int.Parse(MaxX.Text), int.Parse(MaxY.Text) },
+                                    new List<int>() { int.Parse(MinX.Text), int.Parse(MinY.Text) });
+
+            for (int i = 0; i < int.Parse(IterationsCountInput.Text); i++)
+            {
+                swarm.NextIteration();
+            }
+
+            if (DimensionsCount==2)
+            {
+                ChartParticles.Clear();
+                foreach (Particle particle in swarm.Particles)
+                {
+                    ChartParticles.Add(new ObservablePoint(particle.Position[0], particle.Position[1]));
+                }
+            }
+
+            int counter = 0;
+            foreach (List<double> position in swarm.GetResult())
+            {
+                ResultOutput.Text += "Point #" + counter + "(";
+                foreach (double coordinate in position)
+                {
+                    ResultOutput.Text += coordinate + ", ";
+                }
+                switch (FunctionID)
+                {
+                    case 0:
+                        ResultOutput.Text += "), Value: " + Functions.GetSphereValue(position) + "\n";
+                        break;
+                    case 1:
+                        ResultOutput.Text += "), Value: " + Functions.GetRastriginValue(position) + "\n";
+                        break;
+                    case 2:
+                        ResultOutput.Text += "), Value: " + Functions.GetSchwefelValue(position) + "\n";
+                        break;
+                }
+            }
         }
 
         /// <summary>
@@ -44,17 +89,17 @@ namespace Swarm
             string IterationsCountError = "Iterations count should must be a positive integer!\n";
             string ErrorMessage = "";
 
-            if(!uint.TryParse(DimensionsInput.Text, out _))
+            if (!uint.TryParse(DimensionsInput.Text, out _))
             {
                 ErrorMessage += DemensionsError;
                 DimensionsInput.BorderBrush = Brushes.Red;
             }
-            if(!double.TryParse(FPInput.Text, out double FP) && FP < 0)
+            if (!double.TryParse(FPInput.Text, out double FP) && FP < 0)
             {
                 ErrorMessage += FPcoefError;
                 FPInput.BorderBrush = Brushes.Red;
             }
-            if(!double.TryParse(FGInput.Text, out double FG) && FG < 0)
+            if (!double.TryParse(FGInput.Text, out double FG) && FG < 0)
             {
                 ErrorMessage += FGcoefError;
                 FGInput.BorderBrush = Brushes.Red;
@@ -65,15 +110,15 @@ namespace Swarm
                 FPInput.BorderBrush = Brushes.Red;
                 FGInput.BorderBrush = Brushes.Red;
             }
-            if(!uint.TryParse(ParticlesCountInput.Text, out _))
+            if (!uint.TryParse(ParticlesCountInput.Text, out _))
             {
                 ErrorMessage += ParticlesCountError;
                 ParticlesCountInput.BorderBrush = Brushes.Red;
             }
-            if(!uint.TryParse(IterationsCountInput.Text, out _))
+            if (!uint.TryParse(IterationsCountInput.Text, out _))
             {
                 ErrorMessage += IterationsCountError;
-                IterationsCountInput.BorderBrush = Brushes.Red; 
+                IterationsCountInput.BorderBrush = Brushes.Red;
             }
 
             if (ErrorMessage.Length != 0)
@@ -94,7 +139,7 @@ namespace Swarm
 
         private void CheckCorrect_TextInput(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !double.TryParse(e.Text, out _) && !char.IsDigit(e.Text[0]) && e.Text[0]!=',' && e.Text[0]!='-';
+            e.Handled = !double.TryParse(e.Text, out _) && !char.IsDigit(e.Text[0]) && e.Text[0] != ',' && e.Text[0] != '-';
         }
     }
 }
