@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Swarm algoritm" Height="450" Width="800">
+        Title="Swarm algoritm" 
+        Height="450" Width="800">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,25 +26,46 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Content="Function:" Grid.Column="0" Grid.Row="0"/>
-        <Label Content="Dimensions count:" Grid.Column="0" Grid.Row="1"/>
-        <Label Content="FP coeficient:" Grid.Column="0" Grid.Row="2"/>
-        <Label Content="FG coeficient:" Grid.Column="0" Grid.Row="3"/>
-        <Label Content="Particles count:" Grid.Column="0" Grid.Row="4"/>
-        <Label Content="Iterations count:" Grid.Column="0" Grid.Row="5"/>
-        <Label Content="Result:" Grid.Column="0" Grid.Row="7"/>
+        <Label Content="Function:" 
+               Grid.Column="0" Grid.Row="0"/>
+        <Label Content="Dimensions count:" 
+               Grid.Column="0" Grid.Row="1"/>
+        <Label Content="FP coeficient:" 
+               Grid.Column="0" Grid.Row="2"/>
+        <Label Content="FG coeficient:" 
+               Grid.Column="0" Grid.Row="3"/>
+        <Label Content="Particles count:" 
+               Grid.Column="0" Grid.Row="4"/>
+        <Label Content="Iterations count:" 
+               Grid.Column="0" Grid.Row="5"/>
+        <Label Content="Result:" 
+               Grid.Column="0" Grid.Row="7"/>
 
-        <ComboBox Name="FunctionSelector" Style="{StaticResource RoundedComboBox}" ItemContainerStyle="{DynamicResource RoundedComboBoxItem}" Grid.Column="1" Grid.Row="0">
+        <ComboBox Name="FunctionSelector" 
+                  Style="{StaticResource RoundedComboBox}" ItemContainerStyle="{DynamicResource RoundedComboBoxItem}" 
+                  Grid.Column="1" Grid.Row="0">
             <ComboBoxItem Content="Sphere" IsSelected="True"/>
             <ComboBoxItem Content="Rastrigin"/>
             <ComboBoxItem Content="Schwefel"/>
         </ComboBox>
-        <TextBox Name="DimensionsInput" Grid.Column="1" Grid.Row="1" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox Name="FPInput" Grid.Column="1" Grid.Row="2" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox Name="FGInput" Grid.Column="1" Grid.Row="3" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox Name="ParticlesCountInput" Grid.Column="1" Grid.Row="4" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox Name="IterationsCountInput" Grid.Column="1" Grid.Row="5" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox Name="ResultOutput" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9"/>
+        <TextBox Name="DimensionsInput" 
+                 Grid.Column="1" Grid.Row="1" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox Name="FPInput" 
+                 Grid.Column="1" Grid.Row="2" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox Name="FGInput" 
+                 Grid.Column="1" Grid.Row="3" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox Name="ParticlesCountInput" 
+                 Grid.Column="1" Grid.Row="4" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox Name="IterationsCountInput" 
+                 Grid.Column="1" Grid.Row="5" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox Name="ResultOutput" 
+                 TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" 
+                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9"/>
 
         <Grid Grid.Row="0" Grid.Column="3">
             <Grid.ColumnDefinitions>
@@ -53,23 +75,35 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="0">
                 <Label Content="Max X:"/>
-                <TextBox x:Name="MaxX" Width="50" Margin="0,5,5,5" PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="MaxX" 
+                         Width="50" Margin="0,5,5,5" 
+                         PreviewTextInput="CheckCorrect_TextInput"/>
                 <Label Content="Min X:"/>
-                <TextBox x:Name="MinX" Width="50" Margin="0,5,5,5" PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="MinX" 
+                         Width="50" Margin="0,5,5,5" 
+                         PreviewTextInput="CheckCorrect_TextInput"/>
             </StackPanel>
             
             <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
                 <Label Content="Max Y:"/>
-                <TextBox x:Name="MaxY" Width="50" Margin="0,5,5,5" PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="MaxY" 
+                         Width="50" Margin="0,5,5,5" 
+                         PreviewTextInput="CheckCorrect_TextInput"/>
                 <Label Content="Min Y:"/>
-                <TextBox x:Name="MinY" Width="50" Margin="0,5,8,5" PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="MinY" 
+                         Width="50" Margin="0,5,8,5" 
+                         PreviewTextInput="CheckCorrect_TextInput"/>
             </StackPanel>
 
         </Grid>
 
-        <lvc:CartesianChart Name="OutputChart" LegendLocation="Bottom" Margin="8" Grid.Row="1" Grid.RowSpan="9" Grid.Column="3">
+        <lvc:CartesianChart Name="OutputChart" 
+                            LegendLocation="Bottom" Margin="8" 
+                            Grid.Row="1" Grid.RowSpan="9" Grid.Column="3">
             <lvc:CartesianChart.Series>
-                <lvc:ScatterSeries Title="Particle" Values="{Binding ChartParticles}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"/>
+                <lvc:ScatterSeries Title="Particle" 
+                                   Values="{Binding ChartParticles}" 
+                                   PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"/>
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisY>
@@ -84,6 +118,9 @@
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-        <Button Content="Start" Width="150" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" Click="Button_Click"/>
+        <Button Content="Start" 
+                Width="150" 
+                Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" 
+                Click="Button_Click"/>
     </Grid>
 </Window>
