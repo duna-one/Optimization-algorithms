@@ -33,14 +33,31 @@ namespace Swarm
 
             int FunctionID = FunctionSelector.SelectedIndex;
             int DimensionsCount = int.Parse(DimensionsInput.Text);
+            Swarm swarm;
 
-            Swarm swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
-                                    DimensionsCount,
-                                    double.Parse(FPInput.Text),
-                                    double.Parse(FGInput.Text),
-                                    FunctionID,
-                                    new List<int>() { int.Parse(MaxX.Text), int.Parse(MaxY.Text) },
-                                    new List<int>() { int.Parse(MinX.Text), int.Parse(MinY.Text) });
+            if (DimensionsCount == 2)
+            {
+                swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
+                        DimensionsCount,
+                        double.Parse(FPInput.Text),
+                        double.Parse(FGInput.Text),
+                        FunctionID,
+                        new List<int>() { int.Parse(MaxX.Text), int.Parse(MaxY.Text) },
+                        new List<int>() { int.Parse(MinX.Text), int.Parse(MinY.Text) });
+            }
+            else
+            {
+                List<List<int>> MaxMinValues = GetLotDimensionsMaxMin();
+
+                swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
+                        DimensionsCount,
+                        double.Parse(FPInput.Text),
+                        double.Parse(FGInput.Text),
+                        FunctionID,
+                        MaxMinValues[0],
+                        MaxMinValues[1]);
+            }
+
 
             for (int i = 0; i < int.Parse(IterationsCountInput.Text); i++)
             {
@@ -104,10 +121,12 @@ namespace Swarm
             string MaxYError = "MaxY must be must be a number!\n";
             string MinYError = "MinY must be must be a number!\n";
             string MaxMoreThanMin_Y = "MaxY must be more than MinY!\n";
+            string MaxValuesCountError = "The number of maximum values must match the number of dimensions!\n";
+            string MinValuesCountError = "The number of minimum values must match the number of dimensions!\n";
 
             string ErrorMessage = "";
 
-            if (!uint.TryParse(DimensionsInput.Text, out _))
+            if (!uint.TryParse(DimensionsInput.Text, out uint DimensionsCount))
             {
                 ErrorMessage += DemensionsError;
                 DimensionsInput.BorderBrush = Brushes.Red;
@@ -138,37 +157,73 @@ namespace Swarm
                 ErrorMessage += IterationsCountError;
                 IterationsCountInput.BorderBrush = Brushes.Red;
             }
-            if (!double.TryParse(MaxX.Text, out double MaxXValue))
+
+            if (DimensionsCount == 2)
             {
-                ErrorMessage += MaxXError;
-                MaxX.BorderBrush = Brushes.Red;
+                if (!double.TryParse(MaxX.Text, out double MaxXValue))
+                {
+                    ErrorMessage += MaxXError;
+                    MaxX.BorderBrush = Brushes.Red;
+                }
+                if (!double.TryParse(MinX.Text, out double MinXValue))
+                {
+                    ErrorMessage += MinXError;
+                    MinX.BorderBrush = Brushes.Red;
+                }
+                if (MaxXValue < MinXValue)
+                {
+                    ErrorMessage += MaxMoreThanMin_X;
+                    MaxX.BorderBrush = Brushes.Red;
+                    MinX.BorderBrush = Brushes.Red;
+                }
+                if (!double.TryParse(MaxY.Text, out double MaxYValue))
+                {
+                    ErrorMessage += MaxYError;
+                    MaxY.BorderBrush = Brushes.Red;
+                }
+                if (!double.TryParse(MinY.Text, out double MinYValue))
+                {
+                    ErrorMessage += MinYError;
+                    MinY.BorderBrush = Brushes.Red;
+                }
+                if (MaxYValue < MinYValue)
+                {
+                    ErrorMessage += MaxMoreThanMin_Y;
+                    MaxY.BorderBrush = Brushes.Red;
+                    MinY.BorderBrush = Brushes.Red;
+                }
             }
-            if (!double.TryParse(MinX.Text, out double MinXValue))
+            else
             {
-                ErrorMessage += MinXError;
-                MinX.BorderBrush = Brushes.Red;
-            }
-            if (MaxXValue < MinXValue)
-            {
-                ErrorMessage += MaxMoreThanMin_X;
-                MaxX.BorderBrush = Brushes.Red;
-                MinX.BorderBrush = Brushes.Red;
-            }
-            if (!double.TryParse(MaxY.Text, out double MaxYValue))
-            {
-                ErrorMessage += MaxYError;
-                MaxY.BorderBrush = Brushes.Red;
-            }
-            if (!double.TryParse(MinY.Text, out double MinYValue))
-            {
-                ErrorMessage += MinYError;
-                MinY.BorderBrush = Brushes.Red;
-            }
-            if (MaxYValue < MinYValue)
-            {
-                ErrorMessage += MaxMoreThanMin_Y;
-                MaxY.BorderBrush = Brushes.Red;
-                MinY.BorderBrush = Brushes.Red;
+                string[] MaxValues = MaxValuesList.Text.Split("\n");
+                string[] MinValues = MinValuesList.Text.Split("\n");
+
+                if (MaxValues.Length != DimensionsCount)
+                {
+                    ErrorMessage += MaxValuesCountError;
+                    MaxValuesList.BorderBrush = Brushes.Red;
+                }
+                if (MinValues.Length != DimensionsCount)
+                {
+                    ErrorMessage += MinValuesCountError;
+                    MinValuesList.BorderBrush = Brushes.Red;
+                }
+                if (MaxValues.Length != DimensionsCount && MinValues.Length != DimensionsCount)
+                {
+                    for (int i = 0; i < DimensionsCount; i++)
+                    {
+                        if (!double.TryParse(MaxValues[i], out _))
+                        {
+                            ErrorMessage += MaxXError;
+                            MaxValuesList.BorderBrush = Brushes.Red;
+                        }
+                        if (!double.TryParse(MaxValues[i], out _))
+                        {
+                            ErrorMessage += MaxYError;
+                            MinValuesList.BorderBrush = Brushes.Red;
+                        }
+                    }
+                }
             }
 
 
@@ -188,8 +243,29 @@ namespace Swarm
                 MinX.BorderBrush = Brushes.Gray;
                 MaxY.BorderBrush = Brushes.Gray;
                 MinY.BorderBrush = Brushes.Gray;
+                MaxValuesList.BorderBrush = Brushes.Gray;
+                MinValuesList.BorderBrush = Brushes.Gray;
+
                 return true;
             }
+        }
+
+        private List<List<int>> GetLotDimensionsMaxMin()
+        {
+            List<List<int>> result = new List<List<int>>
+            {
+                new List<int>(),
+                new List<int>()
+            };
+            string[] MaxValues = MaxValuesList.Text.Split("\n");
+            string[] MinValues = MinValuesList.Text.Split("\n");
+
+            for (int i = 0; i < MaxValues.Length; i++)
+            {
+                result[0].Add(int.Parse(MaxValues[i]));
+                result[1].Add(int.Parse(MinValues[i]));
+            }
+            return result;
         }
 
         private void CheckCorrect_TextInput(object sender, TextCompositionEventArgs e)
