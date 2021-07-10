@@ -62,6 +62,7 @@ namespace Swarm
             }
 
             int counter = 0;
+            ResultOutput.Clear();
             foreach (List<double> position in swarm.GetResult())
             {
                 ResultOutput.Text += "Point #" + counter + "(";
