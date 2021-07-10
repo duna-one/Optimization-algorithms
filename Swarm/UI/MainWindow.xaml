@@ -73,10 +73,14 @@
             </lvc:CartesianChart.Series>
 
             <lvc:CartesianChart.AxisY>
-                <lvc:Axis Unit="1"/>
+                <lvc:Axis Unit="1" 
+                          MaxValue="10" 
+                          MinValue="-10"/>
             </lvc:CartesianChart.AxisY>
             <lvc:CartesianChart.AxisX>
-                <lvc:Axis Unit="1"/>
+                <lvc:Axis Unit="1" 
+                          MaxValue="10" 
+                          MinValue="-10"/>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
