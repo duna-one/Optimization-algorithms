@@ -82,6 +82,7 @@ namespace Swarm
                         ResultOutput.Text += "), Value: " + Functions.GetSchwefelValue(position) + "\n";
                         break;
                 }
+                counter++;
             }
         }
 
