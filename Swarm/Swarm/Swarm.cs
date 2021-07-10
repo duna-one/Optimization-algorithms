@@ -16,13 +16,17 @@ namespace Swarm
                 Particles.Add(new Particle(N, FP, FG, FunctionID, maxPosition, minPosition));
             }
             GlobalBestValue = double.MaxValue;
-            GlobalBestPosition = new List<double>(N);
+            GlobalBestPosition = new List<double>();
+            for(int i=0; i<N; i++)
+            {
+                GlobalBestPosition.Add(0);
+            }
             FindBestGlobal_ValuePosition();
         }
 
         public void NextIteration()
         {
-            for(int i=0; i<Particles.Count; i++)
+            for (int i = 0; i < Particles.Count; i++)
             {
                 Particles[i].NextIteration(GlobalBestPosition);
             }
@@ -35,12 +39,12 @@ namespace Swarm
             List<Particle> buffer = new List<Particle>();
             Particle BestParticle;
 
-            foreach(Particle particle in Particles)
+            foreach (Particle particle in Particles)
             {
                 buffer.Add(particle);
             }
 
-           for(int i=0; i<4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 BestParticle = buffer[0];
                 foreach (Particle particle in Particles)
@@ -51,7 +55,7 @@ namespace Swarm
                     }
                 }
                 result.Add(new List<double>());
-                foreach(double coordinate in BestParticle.Position)
+                foreach (double coordinate in BestParticle.Position)
                 {
                     result[i].Add(coordinate);
                 }

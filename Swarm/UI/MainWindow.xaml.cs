@@ -12,11 +12,12 @@ namespace Swarm
     /// </summary>
     public partial class MainWindow : Window
     {
-        ChartValues<ObservablePoint> ChartParticles = new ChartValues<ObservablePoint>();
+        public ChartValues<ObservablePoint> ChartParticles { get; private set; }
 
         public MainWindow()
         {
             InitializeComponent();
+            ChartParticles = new ChartValues<ObservablePoint>();
             DataContext = this;
         }
 
