@@ -87,7 +87,14 @@ namespace Swarm
             string FGcoefError = "FG coeficient must be positive double!\n";
             string FP_FGSumError = "FP + FG must be more than 4\n";
             string ParticlesCountError = "Particles count must be a positive integer!\n";
-            string IterationsCountError = "Iterations count should must be a positive integer!\n";
+            string IterationsCountError = "Iterations count must be a positive integer!\n";
+            string MaxXError = "MaxX must be must be a number!\n";
+            string MinXError = "MinX must be must be a number!\n";
+            string MaxMoreThanMin_X = "MaxX must be more than MinX!\n";
+            string MaxYError = "MaxY must be must be a number!\n";
+            string MinYError = "MinY must be must be a number!\n";
+            string MaxMoreThanMin_Y = "MaxY must be more than MinY!\n";
+
             string ErrorMessage = "";
 
             if (!uint.TryParse(DimensionsInput.Text, out _))
@@ -121,6 +128,39 @@ namespace Swarm
                 ErrorMessage += IterationsCountError;
                 IterationsCountInput.BorderBrush = Brushes.Red;
             }
+            if(!double.TryParse(MaxX.Text, out double MaxXValue))
+            {
+                ErrorMessage += MaxXError;
+                MaxX.BorderBrush = Brushes.Red;
+            }
+            if(!double.TryParse(MinX.Text, out double MinXValue))
+            {
+                ErrorMessage += MinXError;
+                MinX.BorderBrush = Brushes.Red;
+            }
+            if (MaxXValue < MinXValue)
+            {
+                ErrorMessage += MaxMoreThanMin_X;
+                MaxX.BorderBrush = Brushes.Red;
+                MinX.BorderBrush = Brushes.Red;
+            }
+            if (!double.TryParse(MaxY.Text, out double MaxYValue))
+            {
+                ErrorMessage += MaxYError;
+                MaxY.BorderBrush = Brushes.Red;
+            }
+            if (!double.TryParse(MinY.Text, out double MinYValue))
+            {
+                ErrorMessage += MinYError;
+                MinY.BorderBrush = Brushes.Red;
+            }
+            if (MaxYValue < MinYValue)
+            {
+                ErrorMessage += MaxMoreThanMin_Y;
+                MaxY.BorderBrush = Brushes.Red;
+                MinY.BorderBrush = Brushes.Red;
+            }
+
 
             if (ErrorMessage.Length != 0)
             {
@@ -134,6 +174,10 @@ namespace Swarm
                 FGInput.BorderBrush = Brushes.Gray;
                 ParticlesCountInput.BorderBrush = Brushes.Gray;
                 IterationsCountInput.BorderBrush = Brushes.Gray;
+                MaxX.BorderBrush = Brushes.Gray;
+                MinX.BorderBrush = Brushes.Gray;
+                MaxY.BorderBrush = Brushes.Gray;
+                MinY.BorderBrush = Brushes.Gray;
                 return true;
             }
         }
