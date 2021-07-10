@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using LiveCharts;
+using LiveCharts.Defaults;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using LiveCharts;
-using LiveCharts.Defaults;
 
 namespace Swarm
 {
@@ -26,7 +26,10 @@ namespace Swarm
         /// </summary>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!CheckInputs()) return;
+            if (!CheckInputs())
+            {
+                return;
+            }
 
             int FunctionID = FunctionSelector.SelectedIndex;
             int DimensionsCount = int.Parse(DimensionsInput.Text);
@@ -44,8 +47,13 @@ namespace Swarm
                 swarm.NextIteration();
             }
 
-            if (DimensionsCount==2)
+            if (DimensionsCount == 2)
             {
+                OutputChart.AxisX[0].MaxValue = double.Parse(MaxX.Text);
+                OutputChart.AxisX[0].MinValue = double.Parse(MinX.Text);
+                OutputChart.AxisY[0].MaxValue = double.Parse(MaxY.Text);
+                OutputChart.AxisY[0].MinValue = double.Parse(MinY.Text);
+
                 ChartParticles.Clear();
                 foreach (Particle particle in swarm.Particles)
                 {
@@ -128,12 +136,12 @@ namespace Swarm
                 ErrorMessage += IterationsCountError;
                 IterationsCountInput.BorderBrush = Brushes.Red;
             }
-            if(!double.TryParse(MaxX.Text, out double MaxXValue))
+            if (!double.TryParse(MaxX.Text, out double MaxXValue))
             {
                 ErrorMessage += MaxXError;
                 MaxX.BorderBrush = Brushes.Red;
             }
-            if(!double.TryParse(MinX.Text, out double MinXValue))
+            if (!double.TryParse(MinX.Text, out double MinXValue))
             {
                 ErrorMessage += MinXError;
                 MinX.BorderBrush = Brushes.Red;
