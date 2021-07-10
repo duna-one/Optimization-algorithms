@@ -50,7 +50,8 @@
         </ComboBox>
         <TextBox Name="DimensionsInput" 
                  Grid.Column="1" Grid.Row="1" 
-                 PreviewTextInput="CheckCorrect_TextInput"/>
+                 PreviewTextInput="CheckCorrect_TextInput"
+                 TextChanged="DimensionsInput_TextChanged"/>
         <TextBox Name="FPInput" 
                  Grid.Column="1" Grid.Row="2" 
                  PreviewTextInput="CheckCorrect_TextInput"/>
@@ -64,16 +65,22 @@
                  Grid.Column="1" Grid.Row="5" 
                  PreviewTextInput="CheckCorrect_TextInput"/>
         <TextBox Name="ResultOutput" 
-                 TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" FontSize="12" 
+                 TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="True" 
                  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="9"/>
 
-        <Grid Grid.Row="0" Grid.Column="3">
+        <!--Two dimensions output-->
+        <Grid Name="TwoDimensionsGrid" 
+              Grid.Row="0" Grid.RowSpan="9" Grid.Column="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="0">
+            <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="0">
                 <Label Content="Max X:"/>
                 <TextBox x:Name="MaxX" 
                          Width="50" Margin="0,5,5,5" 
@@ -83,8 +90,8 @@
                          Width="50" Margin="0,5,5,5" 
                          PreviewTextInput="CheckCorrect_TextInput"/>
             </StackPanel>
-            
-            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right">
                 <Label Content="Max Y:"/>
                 <TextBox x:Name="MaxY" 
                          Width="50" Margin="0,5,5,5" 
@@ -95,29 +102,56 @@
                          PreviewTextInput="CheckCorrect_TextInput"/>
             </StackPanel>
 
-        </Grid>
-
-        <lvc:CartesianChart Name="OutputChart" 
+            <lvc:CartesianChart Name="OutputChart" 
                             LegendLocation="Bottom" Margin="8" 
-                            Grid.Row="1" Grid.RowSpan="9" Grid.Column="3">
-            <lvc:CartesianChart.Series>
-                <lvc:ScatterSeries Title="Particle" 
+                            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <lvc:CartesianChart.Series>
+                    <lvc:ScatterSeries Title="Particle" 
                                    Values="{Binding ChartParticles}" 
                                    PointGeometry="{x:Static lvc:DefaultGeometries.Circle}"/>
-            </lvc:CartesianChart.Series>
+                </lvc:CartesianChart.Series>
 
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Unit="1" 
+                <lvc:CartesianChart.AxisY>
+                    <lvc:Axis Unit="1" 
                           MaxValue="10" 
                           MinValue="-10"/>
-            </lvc:CartesianChart.AxisY>
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Unit="1" 
+                </lvc:CartesianChart.AxisY>
+                <lvc:CartesianChart.AxisX>
+                    <lvc:Axis Unit="1" 
                           MaxValue="10" 
                           MinValue="-10"/>
-            </lvc:CartesianChart.AxisX>
-        </lvc:CartesianChart>
+                </lvc:CartesianChart.AxisX>
+            </lvc:CartesianChart>
+        </Grid>       
 
+        <!--More than two dimensions max min input-->
+        <Grid Name="LotsDimensionsGrid"
+              IsEnabled="False" Visibility="Hidden"
+              Grid.Row="0" Grid.RowSpan="9" Grid.Column="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Max values:"
+                   Grid.Row="0" Grid.Column="0"/>
+            <Label Content="Min values:"
+                   Grid.Row="0" Grid.Column="1"/>
+
+            <TextBox Name="MaxValuesList"
+                     AcceptsReturn="True"
+                     Grid.Row="1" Grid.Column="0"
+                     PreviewTextInput="CheckCorrect_TextInput"/>
+            <TextBox Name="MinValuesList"
+                     AcceptsReturn="True"
+                     Grid.Row="1" Grid.Column="1"
+                     PreviewTextInput="CheckCorrect_TextInput"/>
+        </Grid>
+        
         <Button Content="Start" 
                 Width="150" 
                 Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" 

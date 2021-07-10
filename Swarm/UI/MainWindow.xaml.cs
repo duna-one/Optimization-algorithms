@@ -196,5 +196,38 @@ namespace Swarm
         {
             e.Handled = !double.TryParse(e.Text, out _) && !char.IsDigit(e.Text[0]) && e.Text[0] != ',' && e.Text[0] != '-';
         }
+
+        private void DimensionsInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            string DemensionsError = "Dimensions count must be a positive integer more than 1!\n";
+            if (DimensionsInput.Text.Length == 0)
+            {
+                return;
+            }
+            if (!uint.TryParse(DimensionsInput.Text, out uint Dimensions) || Dimensions <= 1)
+            {
+                MessageBox.Show(DemensionsError, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                DimensionsInput.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                DimensionsInput.BorderBrush = Brushes.Gray;
+                if (Dimensions != 2)
+                {
+                    TwoDimensionsGrid.IsEnabled = false;
+                    TwoDimensionsGrid.Visibility = Visibility.Hidden;
+                    LotsDimensionsGrid.IsEnabled = true;
+                    LotsDimensionsGrid.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    TwoDimensionsGrid.IsEnabled = true;
+                    TwoDimensionsGrid.Visibility = Visibility.Visible;
+                    LotsDimensionsGrid.IsEnabled = false;
+                    LotsDimensionsGrid.Visibility = Visibility.Hidden;
+                }
+
+            }
+        }
     }
 }
