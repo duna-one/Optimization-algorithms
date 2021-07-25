@@ -29,16 +29,16 @@
         <Label Content="Number of iterations:" Grid.Row="3"/>
     
         <!--Input UI-->
-        <ComboBox Grid.Row="0" Grid.Column="1" 
+        <ComboBox x:Name="FunctionSelector" Grid.Row="0" Grid.Column="1" 
                   Style="{StaticResource RoundedComboBox}" 
                   ItemContainerStyle="{StaticResource RoundedComboBoxItem}">
             <ComboBoxItem Content="Sphere" IsSelected="True"/>
             <ComboBoxItem Content="Rastrigin"/>
             <ComboBoxItem Content="Schwefel"/>
         </ComboBox>
-        <TextBox Grid.Row="1" Grid.Column="1"/>
-        <TextBox Grid.Row="2" Grid.Column="1"/>
-        <TextBox Grid.Row="3" Grid.Column="1"/>
+        <TextBox x:Name="ColonyPositionInput" Grid.Row="1" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox x:Name="AreasCountInput" Grid.Row="2" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox x:Name="IterationsInput" Grid.Row="3" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
         
         <!--Buttons area-->
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
@@ -48,9 +48,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Clear" Grid.Column="0"/>
-            <Button Content="Start" Grid.Column="1"/>
-            <Button Content="One iteration" Grid.Column="2"/>
+            <Button Content="Clear" Grid.Column="0" Click="ClearClick"/>
+            <Button Content="Start" Grid.Column="1" Click="StartClick"/>
+            <Button Content="One iteration" Grid.Column="2" Click="OneIterationClick"/>
         </Grid>
         
         <!--Output-->
@@ -62,19 +62,19 @@
             </Grid.RowDefinitions>
 
             <Label Content="Result:"/>
-            <TextBox Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap"/>
+            <TextBox x:Name="ResultTextBox" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap"/>
         </Grid>
             <!--Grafical output-->
         <StackPanel Orientation="Horizontal" Grid.Column="2">
             <Label Content="MaxX:"/>
-            <TextBox Width="50"/>
+            <TextBox x:Name="MaxX" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
             <Label Content="MaxY:"/>
-            <TextBox Width="50"/>
+            <TextBox x:Name="MaxY" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
 
             <Label Content="MinX:"/>
-            <TextBox Width="50"/>
+            <TextBox x:Name="MinX" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
             <Label Content="MinY:"/>
-            <TextBox Width="50"/>
+            <TextBox x:Name="MinY" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
         </StackPanel>
         
         <Chart:CartesianChart Name="OutputChart" 
