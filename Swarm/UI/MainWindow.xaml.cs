@@ -33,11 +33,11 @@ namespace Swarm
 
             int FunctionID = FunctionSelector.SelectedIndex;
             int DimensionsCount = int.Parse(DimensionsInput.Text);
-            Swarm swarm;
+            SwarmClass swarm;
 
             if (DimensionsCount == 2)
             {
-                swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
+                swarm = new SwarmClass(int.Parse(ParticlesCountInput.Text),
                         DimensionsCount,
                         double.Parse(FPInput.Text),
                         double.Parse(FGInput.Text),
@@ -49,7 +49,7 @@ namespace Swarm
             {
                 List<List<int>> MaxMinValues = GetLotDimensionsMaxMin();
 
-                swarm = new Swarm(int.Parse(ParticlesCountInput.Text),
+                swarm = new SwarmClass(int.Parse(ParticlesCountInput.Text),
                         DimensionsCount,
                         double.Parse(FPInput.Text),
                         double.Parse(FGInput.Text),
