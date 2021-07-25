@@ -36,9 +36,16 @@
             <ComboBoxItem Content="Rastrigin"/>
             <ComboBoxItem Content="Schwefel"/>
         </ComboBox>
-        <TextBox x:Name="ColonyPositionInput" Grid.Row="1" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox x:Name="AreasCountInput" Grid.Row="2" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox x:Name="IterationsInput" Grid.Row="3" Grid.Column="1" PreviewTextInput="CheckCorrect_TextInput"/>
+        
+        <TextBox x:Name="ColonyPositionInput" 
+                 Grid.Row="1" Grid.Column="1" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox x:Name="AreasCountInput" 
+                 Grid.Row="2" Grid.Column="1" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+        <TextBox x:Name="IterationsInput" 
+                 Grid.Row="3" Grid.Column="1" 
+                 PreviewTextInput="CheckCorrect_TextInput"/>
         
         <!--Buttons area-->
         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
@@ -48,9 +55,15 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="Clear" Grid.Column="0" Click="ClearClick"/>
-            <Button Content="Start" Grid.Column="1" Click="StartClick"/>
-            <Button Content="One iteration" Grid.Column="2" Click="OneIterationClick"/>
+            <Button Content="Clear" 
+                    Grid.Column="0" 
+                    Click="ClearClick"/>
+            <Button Content="Start" 
+                    Grid.Column="1" 
+                    Click="StartClick"/>
+            <Button Content="One iteration" 
+                    Grid.Column="2" 
+                    Click="OneIterationClick"/>
         </Grid>
         
         <!--Output-->
@@ -58,23 +71,35 @@
         <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*" MaxHeight="200"/>
+                <RowDefinition Height="*" 
+                               MaxHeight="200"/>
             </Grid.RowDefinitions>
 
             <Label Content="Result:"/>
-            <TextBox x:Name="ResultTextBox" Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap"/>
+            <TextBox x:Name="ResultTextBox" 
+                     Grid.Row="1" 
+                     IsReadOnly="True" 
+                     TextWrapping="Wrap"/>
         </Grid>
             <!--Grafical output-->
         <StackPanel Orientation="Horizontal" Grid.Column="2">
             <Label Content="MaxX:"/>
-            <TextBox x:Name="MaxX" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
+            <TextBox x:Name="MaxX" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"/>
             <Label Content="MaxY:"/>
-            <TextBox x:Name="MaxY" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
+            <TextBox x:Name="MaxY" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"/>
 
             <Label Content="MinX:"/>
-            <TextBox x:Name="MinX" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
+            <TextBox x:Name="MinX" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"/>
             <Label Content="MinY:"/>
-            <TextBox x:Name="MinY" Width="50" PreviewTextInput="CheckCorrect_TextInput"/>
+            <TextBox x:Name="MinY" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"/>
         </StackPanel>
         
         <Chart:CartesianChart Name="OutputChart" 
