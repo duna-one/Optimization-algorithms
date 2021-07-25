@@ -1,5 +1,6 @@
 ﻿using LiveCharts;
 using LiveCharts.Defaults;
+using Styles_Functions;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Input;

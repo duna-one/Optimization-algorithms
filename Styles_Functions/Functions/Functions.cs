@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Swarm
+namespace Styles_Functions
 {
     public static class Functions
     {

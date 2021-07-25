@@ -5,8 +5,8 @@
   <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>                
-				<ResourceDictionary Source="/Styles;component/Styles/DefaultProjectStyles.xaml"/>
-	            <ResourceDictionary Source="/Styles;component/Styles/RoundedComboBox.xaml"/>                
+				<ResourceDictionary Source="/Styles_Functions;component/Styles/DefaultProjectStyles.xaml"/>
+                <ResourceDictionary Source="/Styles_Functions;component/Styles/RoundedComboBox.xaml"/>                
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>   
     </Application.Resources>

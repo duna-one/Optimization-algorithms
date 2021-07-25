@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Styles\Styles.csproj" />
+    <ProjectReference Include="..\Styles_Functions\Styles_Functions.csproj" />
   </ItemGroup>
 
 </Project>
