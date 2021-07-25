@@ -3,10 +3,87 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Bee_Colony"
+        xmlns:Chart="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Labels-->
+        <Label Content="Function:" Grid.Row="0"/>
+        <Label Content="Colony position:" Grid.Row="1"/>
+        <Label Content="Number of search areas:" Grid.Row="2"/>
+        <Label Content="Number of iterations:" Grid.Row="3"/>
+    
+        <!--Input UI-->
+        <ComboBox Grid.Row="0" Grid.Column="1" 
+                  Style="{StaticResource RoundedComboBox}" 
+                  ItemContainerStyle="{StaticResource RoundedComboBoxItem}">
+            <ComboBoxItem Content="Sphere" IsSelected="True"/>
+            <ComboBoxItem Content="Rastrigin"/>
+            <ComboBoxItem Content="Schwefel"/>
+        </ComboBox>
+        <TextBox Grid.Row="1" Grid.Column="1"/>
+        <TextBox Grid.Row="2" Grid.Column="1"/>
+        <TextBox Grid.Row="3" Grid.Column="1"/>
+        
+        <!--Buttons area-->
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Clear" Grid.Column="0"/>
+            <Button Content="Start" Grid.Column="1"/>
+            <Button Content="One iteration" Grid.Column="2"/>
+        </Grid>
+        
+        <!--Output-->
+            <!--Text output-->
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Result:"/>
+            <TextBox Grid.Row="1" IsReadOnly="True" TextWrapping="Wrap"/>
+        </Grid>
+            <!--Grafical output-->
+        <Chart:CartesianChart Name="OutputChart" 
+                            LegendLocation="Bottom" Margin="8" 
+                            Grid.RowSpan="6" Grid.Column="3">
+            <Chart:CartesianChart.Series>
+                <Chart:ScatterSeries Title="Particle" 
+                                   Values="{Binding ChartParticles}" 
+                                   PointGeometry="{x:Static Chart:DefaultGeometries.Circle}"/>
+            </Chart:CartesianChart.Series>
+
+            <Chart:CartesianChart.AxisY>
+                <Chart:Axis Unit="1" 
+                          MaxValue="10" 
+                          MinValue="-10"/>
+            </Chart:CartesianChart.AxisY>
+            <Chart:CartesianChart.AxisX>
+                <Chart:Axis Unit="1" 
+                          MaxValue="10" 
+                          MinValue="-10"/>
+            </Chart:CartesianChart.AxisX>
+        </Chart:CartesianChart>
 
     </Grid>
 </Window>

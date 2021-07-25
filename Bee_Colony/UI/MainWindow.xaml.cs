@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using LiveCharts.Defaults;
+using LiveCharts;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Bee_Colony
 {
@@ -20,6 +9,8 @@ namespace Bee_Colony
     /// </summary>
     public partial class MainWindow : Window
     {
+        public ChartValues<ObservablePoint> ChartParticles { get; private set; } = new ChartValues<ObservablePoint>();
+
         public MainWindow()
         {
             InitializeComponent();

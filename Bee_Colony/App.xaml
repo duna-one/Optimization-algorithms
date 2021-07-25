@@ -1,9 +1,13 @@
 ﻿<Application x:Class="Bee_Colony.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Bee_Colony"
              StartupUri="UI/MainWindow.xaml">
-    <Application.Resources>
-         
+  <Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>                
+				<ResourceDictionary Source="/Styles;component/Styles/DefaultProjectStyles.xaml"/>
+	            <ResourceDictionary Source="/Styles;component/Styles/RoundedComboBox.xaml"/>                
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>   
     </Application.Resources>
 </Application>
