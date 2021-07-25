@@ -42,6 +42,7 @@
                Grid.Column="0" Grid.Row="7"/>
 
         <ComboBox Name="FunctionSelector" 
+                  Style="{DynamicResource RoundedComboBox}"
                   ItemContainerStyle="{DynamicResource RoundedComboBoxItem}" 
                   Grid.Column="1" Grid.Row="0">
             <ComboBoxItem Content="Sphere" IsSelected="True"/>
