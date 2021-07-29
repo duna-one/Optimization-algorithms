@@ -3,10 +3,13 @@ using System.Collections.Generic;
 
 namespace Bee_Colony
 {
+    /// <summary>
+    /// This is your scout. He loves you <3
+    /// </summary>
     internal class Scout
     {
         #region public Fields
-        public List<double> Position { get; private set; } = new List<double>();
+        public List<double> Position { get; private set; } = new List<double>(); // Current scuot position
         public double BestValue { get; private set; } = double.MaxValue;
         public List<double> BestValuePosition { get; private set; } = new List<double>();
         #endregion
