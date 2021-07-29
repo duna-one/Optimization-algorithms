@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Bee_Colony.Colony
+namespace Bee_Colony
 {
     internal class Colony
     {
