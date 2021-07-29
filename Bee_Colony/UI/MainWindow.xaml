@@ -10,45 +10,60 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--Labels-->
-        <Label Content="Function:" Grid.Row="0"/>
-        <Label Content="Colony position:" Grid.Row="1"/>
-        <Label Content="Number of search areas:" Grid.Row="2"/>
-        <Label Content="Number of iterations:" Grid.Row="3"/>
-    
-        <!--Input UI-->
-        <ComboBox x:Name="FunctionSelector" Grid.Row="0" Grid.Column="1" 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="150"/>                
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <!--Labels-->
+                <Label Content="Function:"/>
+                <Label Content="Colony position:"/>
+                <Label Content="Number of search areas:"/>
+                <Label Content="Number of iterations:"/>
+                <Label Content="Seach radius:"/>
+                <Label Content="Scouts count:"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Vertical" Grid.Column="1">
+                <!--Input UI-->
+                <ComboBox x:Name="FunctionSelector" Height="35"
                   Style="{StaticResource RoundedComboBox}" 
                   ItemContainerStyle="{StaticResource RoundedComboBoxItem}">
-            <ComboBoxItem Content="Sphere" IsSelected="True"/>
-            <ComboBoxItem Content="Rastrigin"/>
-            <ComboBoxItem Content="Schwefel"/>
-        </ComboBox>
-        
-        <TextBox x:Name="ColonyPositionInput" 
-                 Grid.Row="1" Grid.Column="1" 
+                    <ComboBoxItem Content="Sphere" IsSelected="True"/>
+                    <ComboBoxItem Content="Rastrigin"/>
+                    <ComboBoxItem Content="Schwefel"/>
+                </ComboBox>
+
+                <TextBox x:Name="ColonyPositionInput" 
+                 Height="31"
                  PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox x:Name="AreasCountInput" 
-                 Grid.Row="2" Grid.Column="1" 
+                <TextBox x:Name="AreasCountInput" 
+                 Height="31"
                  PreviewTextInput="CheckCorrect_TextInput"/>
-        <TextBox x:Name="IterationsInput" 
-                 Grid.Row="3" Grid.Column="1" 
+                <TextBox x:Name="IterationsInput" 
+                 Height="31"
                  PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="SeachRadiusInput" 
+                 Height="31"
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+                <TextBox x:Name="ScoutsCountInput" 
+                 Height="31"
+                 PreviewTextInput="CheckCorrect_TextInput"/>
+            </StackPanel>
+        </Grid> 
         
         <!--Buttons area-->
-        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -68,7 +83,7 @@
         
         <!--Output-->
             <!--Text output-->
-        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+        <Grid Grid.Row="5" Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*" 
@@ -82,46 +97,57 @@
                      TextWrapping="Wrap"/>
         </Grid>
             <!--Grafical output-->
-        <StackPanel Orientation="Horizontal" Grid.Column="2">
-            <Label Content="MaxX:"/>
-            <TextBox x:Name="MaxX" 
-                     Width="50" 
-                     PreviewTextInput="CheckCorrect_TextInput"/>
-            <Label Content="MaxY:"/>
-            <TextBox x:Name="MaxY" 
-                     Width="50" 
-                     PreviewTextInput="CheckCorrect_TextInput"/>
+        <Grid Grid.Column="1" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Label Content="MinX:"/>
-            <TextBox x:Name="MinX" 
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Label Content="MaxX:"/>
+                <TextBox x:Name="MaxX" 
                      Width="50" 
-                     PreviewTextInput="CheckCorrect_TextInput"/>
-            <Label Content="MinY:"/>
-            <TextBox x:Name="MinY" 
+                     PreviewTextInput="CheckCorrect_TextInput"
+                     TextChanged="Bounds_TextChanged"/>
+                <Label Content="MaxY:"/>
+                <TextBox x:Name="MaxY" 
                      Width="50" 
-                     PreviewTextInput="CheckCorrect_TextInput"/>
-        </StackPanel>
-        
-        <Chart:CartesianChart Name="OutputChart" 
+                     PreviewTextInput="CheckCorrect_TextInput"
+                     TextChanged="Bounds_TextChanged"/>
+
+                <Label Content="MinX:"/>
+                <TextBox x:Name="MinX" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"
+                     TextChanged="Bounds_TextChanged"/>
+                <Label Content="MinY:"/>
+                <TextBox x:Name="MinY" 
+                     Width="50" 
+                     PreviewTextInput="CheckCorrect_TextInput"
+                     TextChanged="Bounds_TextChanged"/>
+            </StackPanel>
+            
+            <Chart:CartesianChart Name="OutputChart" 
                             LegendLocation="None" Margin="8" 
-                            Grid.Row="1" Grid.RowSpan="5" Grid.Column="3">
-            <Chart:CartesianChart.Series>
-                <Chart:ScatterSeries Title="Particle" 
+                            Grid.Row="1">
+                <Chart:CartesianChart.Series>
+                    <Chart:ScatterSeries Title="Particle" 
                                    Values="{Binding ChartParticles}" 
                                    PointGeometry="{x:Static Chart:DefaultGeometries.Circle}"/>
-            </Chart:CartesianChart.Series>
+                </Chart:CartesianChart.Series>
 
-            <Chart:CartesianChart.AxisY>
-                <Chart:Axis Unit="1" 
+                <Chart:CartesianChart.AxisY>
+                    <Chart:Axis Unit="1" 
                           MaxValue="10" 
                           MinValue="-10"/>
-            </Chart:CartesianChart.AxisY>
-            <Chart:CartesianChart.AxisX>
-                <Chart:Axis Unit="1" 
+                </Chart:CartesianChart.AxisY>
+                <Chart:CartesianChart.AxisX>
+                    <Chart:Axis Unit="1" 
                           MaxValue="10" 
                           MinValue="-10"/>
-            </Chart:CartesianChart.AxisX>
-        </Chart:CartesianChart>
+                </Chart:CartesianChart.AxisX>
+            </Chart:CartesianChart>
 
+        </Grid>
     </Grid>
 </Window>
