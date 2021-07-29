@@ -2,19 +2,23 @@
 
 namespace Bee_Colony
 {
+    /// <summary>
+    /// This is your bee colony. Be careful c: <br/>
+    /// Beeeeeeeeeeeeeeeeeeeeeeeeeee
+    /// </summary>
     internal class Colony
     {
         #region public fields
-        public List<double> Position { get; private set; } = new List<double>();
+        public List<double> Position { get; private set; } = new List<double>(); // Current position of colony
         public List<double> GlobalBestPosition { get; private set; } = new List<double>();
         public double GlobalBestValue { get; private set; } = double.MaxValue;
+        public readonly List<Scout> Scouts = new List<Scout>();
         #endregion
 
         #region private fields
-        private readonly List<Scout> Scouts = new List<Scout>();
         private readonly int SearchRadius;
         private readonly int CheckPoints;
-        private readonly int FunctionID; 
+        private readonly int FunctionID;
         private readonly int ScoutsCount;
         #endregion
 
@@ -32,6 +36,9 @@ namespace Bee_Colony
             }
         }
 
+        /// <summary>
+        /// Searches best value position and moves colony to this position
+        /// </summary>
         public void Exploration()
         {
             foreach (Scout scout in Scouts)
@@ -52,6 +59,10 @@ namespace Bee_Colony
             }
         }
 
+        /// <summary>
+        /// OMG IT'S RANDOM
+        /// </summary>
+        /// <returns>List of random position coordinates</returns>
         private List<double> GetRandomPosition()
         {
             List<double> result = new List<double>();
